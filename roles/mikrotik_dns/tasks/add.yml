@@ -1,0 +1,35 @@
+---
+- name: Fetch existing static DNS records
+  community.routeros.command:
+    commands:
+      - /ip dns static print
+  register: existing_dns
+
+- name: Extract existing DNS names
+  set_fact:
+    existing_dns_names: "{{ existing_dns.stdout[0] | regex_findall('name=(\\S+)') }}"
+
+- name: Add missing DNS static entries
+  community.routeros.command:
+    commands:
+      - >
+        /ip dns static add name={{ item.name }}
+        {% if item.type | default('A') == 'CNAME' %}
+          cname={{ item.cname }}
+        {% else %}
+          address={{ item.address }}
+        {% endif %}
+        ttl={{ item.ttl }}
+        {% if item.comment is defined %}
+          comment="{{ item.comment }}"
+        {% endif %}
+        disabled={{ 'yes' if item.disabled | default('no') else 'no' }}
+  loop: "{{ static_records }}"
+  when: 
+    - item.name not in existing_dns_names
+    - (item.type | default('A') != 'CNAME') or (item.type | default('A') == 'CNAME' and item.cname)
+  register: dns_add_results
+
+- name: Debug DNS add results
+  debug:
+    var: dns_add_results

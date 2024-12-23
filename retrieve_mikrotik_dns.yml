@@ -1,0 +1,7 @@
+---
+- name: Retrieve MikroTik Static DNS Entries
+  hosts: mikrotik_router
+  gather_facts: no
+  roles:
+    - role: mikrotik_dns
+      retrieve_dns: true

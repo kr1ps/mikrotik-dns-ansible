@@ -1,0 +1,14 @@
+---
+# Flags to control which actions to perform
+retrieve_dns: false
+add_dns: false
+delete_dns: false
+
+# Path to the static records file
+static_records_file: "./static_records.yml"
+
+# Destination path for the retrieved static DNS inventory
+template_dest: "./mikrotik_static_dns_inventory.yml"
+
+# Static DNS records to add (used in add.yml)
+static_records: []

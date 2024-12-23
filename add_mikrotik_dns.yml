@@ -1,0 +1,11 @@
+---
+- name: Add MikroTik Static DNS Entries
+  hosts: mikrotik_router
+  gather_facts: no
+  vars_files:
+    - static_records.yml
+  roles:
+    - role: mikrotik_dns
+      add_dns: true
+      static_records_file: "vars/static_records.yml"
+     

@@ -1,0 +1,12 @@
+---
+- name: Retrieve Static DNS Records
+  include_tasks: retrieve.yml
+  when: retrieve_dns
+
+- name: Add DNS Static Entries
+  include_tasks: add.yml
+  when: add_dns
+
+- name: Delete Extra DNS Entries
+  include_tasks: delete.yml
+  when: delete_dns

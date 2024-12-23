@@ -4,18 +4,6 @@ static_records:
     comment: "Record 1"
     disabled: no
     ttl: 10h
-  - name: hola.kr1ps.com
-    address: "172.18.0.40"
-    comment: "Record 1"
-    disabled: no
-    ttl: "1d"
-    type: A
-  - name: second.kr1ps.com
-    address: "172.18.0.45"
-    comment: "Record 1"
-    disabled: no
-    ttl: "1d"
-    type: A
   - name: third.kr1ps.com
     cname: "target.example.com"  # Ensure this is properly set as per previous guidance
     comment: "Record 1"
@@ -35,6 +23,11 @@ static_records:
     type: A
   - name: five.kr1ps.com
     address: "172.18.0.49"
+    disabled: no
+    ttl: "1d"
+    type: A
+  - name: six.kr1ps.com
+    address: "172.18.0.50"
     disabled: no
     ttl: "1d"
     type: A
