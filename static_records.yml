@@ -4,11 +4,6 @@ static_records:
     comment: "Record 1"
     disabled: no
     ttl: 10h
-  - name: rec3
-    address: 10.8.0.3
-    comment: "Record 3"
-    disabled: no
-    ttl: 1d
   - name: hola.kr1ps.com
     address: "172.18.0.40"
     comment: "Record 1"
@@ -34,8 +29,13 @@ static_records:
     ttl: "1d"
     type: CNAME
   - name: five.kr1ps.com
+    address: "172.18.0.46"
+    ttl: "1d"
+    disabled: no
+    type: A
+  - name: five.kr1ps.com
     address: "172.18.0.49"
-    comment: "A Record 55"
     disabled: no
     ttl: "1d"
     type: A
+  
