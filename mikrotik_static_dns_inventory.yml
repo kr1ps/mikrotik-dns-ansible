@@ -1,0 +1,25 @@
+static_records:  # List of static records to configure
+  - name: rec1
+    address: "10.8.0.1"
+    ttl: "10h"
+    type: A
+  - name: rec3
+    address: "10.8.0.3"
+    ttl: "1d"
+    type: A
+  - name: hola.kr1ps.com
+    address: "172.18.0.40"
+    ttl: "1d"
+    type: A
+  - name: second.kr1ps.com
+    address: "172.18.0.45"
+    ttl: "1d"
+    type: A
+  - name: third.kr1ps.com
+    address: ""
+    ttl: "1d"
+    type: CNAME
+  - name: four.kr1ps.com
+    address: ""
+    ttl: "1d"
+    type: CNAME

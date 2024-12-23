@@ -1,0 +1,54 @@
+---
+- name: Retrieve Static DNS Records from MikroTik Router
+  hosts: mikrotik_router
+  gather_facts: no
+  vars:
+    template_dest: "./mikrotik_static_dns_inventory.yml"
+  tasks:
+    # Step 1: Fetch DNS Records
+    - name: Fetch static DNS records
+      community.routeros.command:
+        commands:
+          - /ip dns static print
+      register: dns_records_raw
+
+    # Step 2: Debug Raw Output (Optional)
+    - name: Debug raw DNS records output
+      debug:
+        var: dns_records_raw.stdout_lines
+
+    # Step 3: Initialize the Parsed DNS Records List
+    - name: Initialize static_dns_parsed
+      set_fact:
+        static_dns_parsed: []
+
+    # Step 4: Parse Each DNS Record Line
+    - name: Parse DNS record lines
+      set_fact:
+        static_dns_parsed: "{{ static_dns_parsed + [ dns_record ] }}"
+      vars:
+        parts: "{{ item.split() }}"
+        dns_record: >-
+          {{
+            {
+              'name': parts[1],
+              'address': ('' if parts[2] == 'CNAME' else parts[3]),
+              'ttl': (parts[3] if parts[2] == 'CNAME' else parts[4]),
+              'type': parts[2]
+            }
+          }}
+      loop: "{{ dns_records_raw.stdout_lines[0] }}"
+      when:
+        - not (item.startswith('Columns:') or item.startswith('#') or item.startswith(';;;'))
+        - item.strip() != ''
+
+    # Step 5: Display Parsed DNS Records (Optional)
+    - name: Display parsed static DNS records
+      debug:
+        var: static_dns_parsed
+
+    # Step 6: Render the Jinja2 Template
+    - name: Render DNS records to YAML file using template
+      template:
+        src: static_dns_inventory.yml.j2
+        dest: "{{ template_dest }}"

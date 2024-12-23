@@ -1,0 +1,8 @@
+all:
+  hosts:
+    mikrotik_router:
+      ansible_host: 172.18.0.237       # Replace with MikroTik router IP
+      ansible_user: admin              # Replace with your MikroTik username
+      ansible_password:    # Replace with your MikroTik password
+      ansible_network_os: routeros     # Necessary for MikroTik support
+      ansible_connection: network_cli

@@ -1,0 +1,7 @@
+static_records:  # List of static records to configure
+{% for record in static_dns_parsed %}
+  - name: {{ record.name }}
+    address: "{{ record.address }}"
+    ttl: "{{ record.ttl }}"
+    type: {{ record.type }}
+{% endfor %}
