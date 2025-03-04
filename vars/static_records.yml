@@ -5,13 +5,13 @@ static_records:
     disabled: no
     ttl: 10h
   - name: third.kr1ps.com
-    cname: "target.example.com"  # Ensure this is properly set as per previous guidance
+    cname: "target.example.com"
     comment: "Record 1"
     disabled: no
     ttl: "1d"
     type: CNAME
   - name: four.kr1ps.com
-    cname: "target2.example.com"  # Ensure this is properly set as per previous guidance
+    cname: "target2.example.com"
     comment: "cname 2"
     disabled: no
     ttl: "1d"
